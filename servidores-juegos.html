@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameHost Pro | Servidores de Juegos</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #f4f8ff;
+        background: #080b10;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 8%;
+        background: rgba(8, 11, 16, 0.88);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: #42d9ff;
+      }
+
+      nav a {
+        margin-left: 24px;
+        color: #c8d3e0;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      nav a:hover {
+        color: #ffffff;
+      }
+
+      .hero {
+        min-height: 92vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 8% 70px;
+        background:
+          linear-gradient(90deg, rgba(8, 11, 16, 0.97), rgba(8, 11, 16, 0.55)),
+          url("assets/hero-game-servers.png") center / cover;
+      }
+
+      .hero-content {
+        max-width: 720px;
+      }
+
+      .tag {
+        color: #73f0a8;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      h1 {
+        margin: 18px 0;
+        font-size: clamp(42px, 7vw, 76px);
+        line-height: 1;
+      }
+
+      .hero p {
+        max-width: 620px;
+        color: #c4cfdb;
+        font-size: 20px;
+        line-height: 1.6;
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 32px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 15px 22px;
+        border-radius: 8px;
+        color: #071018;
+        background: linear-gradient(135deg, #42d9ff, #73f0a8);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .btn.secondary {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      section {
+        padding: 80px 8%;
+      }
+
+      .section-title {
+        max-width: 760px;
+        margin-bottom: 34px;
+      }
+
+      .section-title h2 {
+        margin: 0 0 12px;
+        font-size: clamp(30px, 4vw, 46px);
+      }
+
+      .section-title p {
+        color: #aeb9c8;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        padding: 26px;
+        border-radius: 8px;
+        background: #111823;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        color: #ffffff;
+      }
+
+      .card p,
+      .card li {
+        color: #aeb9c8;
+        line-height: 1.6;
+      }
+
+      .plans {
+        background: #0d121a;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .plan-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .price {
+        margin: 18px 0;
+        font-size: 44px;
+        font-weight: 800;
+        color: #73f0a8;
+      }
+
+      .price span {
+        font-size: 16px;
+        color: #aeb9c8;
+      }
+
+      ul {
+        padding-left: 18px;
+      }
+
+      .featured {
+        border-color: #42d9ff;
+        box-shadow: 0 0 40px rgba(66, 217, 255, 0.18);
+      }
+
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+        padding: 26px;
+        border-radius: 8px;
+        background: #111823;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        width: 100%;
+        min-height: 46px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        padding: 12px;
+        font: inherit;
+      }
+
+      input,
+      select,
+      textarea {
+        color: #ffffff;
+        background: #080b10;
+      }
+
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+
+      button {
+        cursor: pointer;
+        border: 0;
+        color: #071018;
+        background: linear-gradient(135deg, #42d9ff, #73f0a8);
+        font-weight: 800;
+      }
+
+      .form-status {
+        min-height: 22px;
+        margin: 0;
+        color: #73f0a8;
+        font-weight: 700;
+      }
+
+      .form-status.error {
+        color: #ff6b7a;
+      }
+
+      footer {
+        padding: 28px 8%;
+        color: #aeb9c8;
+        background: #06080c;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        header {
+          position: static;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        nav a {
+          margin: 0 8px;
+        }
+
+        .hero {
+          padding-top: 70px;
+        }
+
+        .grid,
+        .plan-grid,
+        .contact {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">GameHost Pro</div>
+      <nav>
+        <a href="#juegos">Juegos</a>
+        <a href="#planes">Planes</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <div class="tag">Hosting gamer profesional</div>
+          <h1>Servidores de juegos rápidos, seguros y listos para usar.</h1>
+          <p>
+            Vende servidores para Minecraft, Rust, ARK, FiveM, Valheim, CS2 y muchos más con
+            protección DDoS, discos NVMe, backups automáticos y soporte técnico 24/7.
+          </p>
+          <div class="buttons">
+            <a class="btn" href="#planes">Ver planes</a>
+            <a class="btn secondary" href="#contacto">Pedir asesoramiento</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="juegos">
+        <div class="section-title">
+          <h2>Juegos disponibles</h2>
+          <p>
+            Ofrece servidores optimizados para comunidades pequeñas, clanes competitivos,
+            streamers y redes grandes.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Minecraft</h3>
+            <p>Soporte para Java, Bedrock, plugins, modpacks y mundos personalizados.</p>
+          </article>
+          <article class="card">
+            <h3>Rust</h3>
+            <p>Servidores preparados para wipes, Oxide, mapas grandes y muchos jugadores.</p>
+          </article>
+          <article class="card">
+            <h3>FiveM</h3>
+            <p>Hosting para roleplay con base de datos, recursos y reinicios automáticos.</p>
+          </article>
+          <article class="card">
+            <h3>ARK / Valheim</h3>
+            <p>Mundos persistentes con backups, alto rendimiento y administración sencilla.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="plans" id="planes">
+        <div class="section-title">
+          <h2>Planes de servidores</h2>
+          <p>Precios claros para que tus clientes puedan empezar rápido y escalar cuando crezcan.</p>
+        </div>
+        <div class="plan-grid">
+          <article class="card">
+            <h3>Starter</h3>
+            <div class="price">$6<span>/mes</span></div>
+            <ul>
+              <li>4 GB de RAM</li>
+              <li>2 vCPU</li>
+              <li>25 GB NVMe</li>
+              <li>Backups diarios</li>
+            </ul>
+            <a class="btn" href="#contacto">Contratar</a>
+          </article>
+          <article class="card featured">
+            <h3>Pro</h3>
+            <div class="price">$14<span>/mes</span></div>
+            <ul>
+              <li>10 GB de RAM</li>
+              <li>4 vCPU</li>
+              <li>60 GB NVMe</li>
+              <li>Soporte prioritario</li>
+            </ul>
+            <a class="btn" href="#contacto">Más elegido</a>
+          </article>
+          <article class="card">
+            <h3>Elite</h3>
+            <div class="price">$29<span>/mes</span></div>
+            <ul>
+              <li>24 GB de RAM</li>
+              <li>8 vCPU</li>
+              <li>140 GB NVMe</li>
+              <li>IP dedicada incluida</li>
+            </ul>
+            <a class="btn" href="#contacto">Consultar</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact" id="contacto">
+        <div class="section-title">
+          <h2>Solicita tu servidor</h2>
+          <p>
+            Completa el formulario y recibe una recomendación según el juego, cantidad de jugadores
+            y mods que quieras usar.
+          </p>
+        </div>
+        <form id="cliente-form">
+          <input id="nombre" name="nombre" type="text" placeholder="Nombre" required />
+          <input id="email" name="email" type="email" placeholder="Email" required />
+          <select id="juego" name="juego" required>
+            <option value="Minecraft">Minecraft</option>
+            <option value="Rust">Rust</option>
+            <option value="FiveM">FiveM</option>
+            <option value="ARK">ARK</option>
+            <option value="Otro juego">Otro juego</option>
+          </select>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            placeholder="Cuéntanos qué servidor necesitas"
+          ></textarea>
+          <button id="submit-button" type="submit">Enviar solicitud</button>
+          <p class="form-status" id="form-status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      GameHost Pro - Venta de servidores de juegos con alto rendimiento y soporte técnico.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const SUPABASE_URL = "https://jsjmmtkgefvgtiglrcqx.supabase.co";
+      const SUPABASE_ANON_KEY = "sb_publishable_0BMgKT-7kyutwlejlDc2Fw_FZQkJcRW";
+
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const form = document.getElementById("cliente-form");
+      const statusText = document.getElementById("form-status");
+      const submitButton = document.getElementById("submit-button");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        statusText.textContent = "";
+        statusText.classList.remove("error");
+        submitButton.disabled = true;
+        submitButton.textContent = "Guardando...";
+
+        const cliente = {
+          nombre: document.getElementById("nombre").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          juego: document.getElementById("juego").value,
+          mensaje: document.getElementById("mensaje").value.trim(),
+        };
+
+        const { error } = await supabaseClient.from("clientes").insert([cliente]);
+
+        if (error) {
+          statusText.textContent = "No se pudo guardar el cliente. Revisa la configuración.";
+          statusText.classList.add("error");
+          console.error(error);
+        } else {
+          statusText.textContent = "Cliente guardado correctamente.";
+          form.reset();
+        }
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Enviar solicitud";
+      });
+    </script>
+  </body>
+</html>

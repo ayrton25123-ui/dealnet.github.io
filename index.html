@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CraftNode | Hosting Minecraft</title>
+    <meta
+      name="description"
+      content="Hosting de servidores Minecraft con activacion rapida, proteccion DDoS, backups automaticos, modpacks y soporte en espanol."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="CraftNode inicio">
+        <span class="brand-mark"><i data-lucide="pickaxe"></i></span>
+        <span>CraftNode</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegacion principal">
+        <a href="#planes">Planes</a>
+        <a href="#panel">Panel</a>
+        <a href="#mods">Mods</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="button primary header-cta" href="#planes">
+        <i data-lucide="server"></i>
+        Contratar
+      </a>
+      <button class="icon-button menu-button" type="button" aria-label="Abrir menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <img src="assets/hero-game-servers.png" alt="Centro de datos gamer para servidores de Minecraft" />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Hosting Minecraft premium</p>
+          <h1>Tu mundo online en minutos, sin lag y sin complicarte.</h1>
+          <p>
+            Servidores Vanilla, Paper, Forge y modpacks con proteccion DDoS, backups diarios,
+            soporte en espanol y panel simple para invitar a tus amigos hoy.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#planes">
+              <i data-lucide="shopping-cart"></i>
+              Ver planes
+            </a>
+            <a class="button secondary" href="#calculadora">
+              <i data-lucide="sliders-horizontal"></i>
+              Calcular precio
+            </a>
+          </div>
+          <div class="trust-strip" aria-label="Beneficios principales">
+            <span><i data-lucide="zap"></i> Activacion inmediata</span>
+            <span><i data-lucide="shield-check"></i> Anti-DDoS incluido</span>
+            <span><i data-lucide="message-circle"></i> Soporte 24/7</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-band" aria-label="Metricas del servicio">
+        <article>
+          <strong>99.9%</strong>
+          <span>uptime mensual</span>
+        </article>
+        <article>
+          <strong>&lt;30ms</strong>
+          <span>latencia regional</span>
+        </article>
+        <article>
+          <strong>1 click</strong>
+          <span>para instalar modpacks</span>
+        </article>
+        <article>
+          <strong>24/7</strong>
+          <span>monitoreo y soporte</span>
+        </article>
+      </section>
+
+      <section class="section" id="planes">
+        <div class="section-heading">
+          <p class="eyebrow">Planes listos</p>
+          <h2>Elegis la potencia, nosotros mantenemos el servidor vivo.</h2>
+        </div>
+        <div class="plans-grid">
+          <article class="plan-card">
+            <div class="plan-top">
+              <span class="plan-icon"><i data-lucide="sprout"></i></span>
+              <h3>Survival</h3>
+              <p>Para amigos y mundos vanilla.</p>
+            </div>
+            <div class="price"><span>$</span>4.999<small>/mes</small></div>
+            <ul>
+              <li>4 GB RAM DDR4</li>
+              <li>20 jugadores recomendados</li>
+              <li>Backups diarios</li>
+              <li>Subdominio gratis</li>
+            </ul>
+            <a class="button outline" href="mailto:ventas@craftnode.local?subject=Plan%20Survival">
+              <i data-lucide="mail"></i>
+              Pedir plan
+            </a>
+          </article>
+
+          <article class="plan-card featured">
+            <div class="badge">Mas vendido</div>
+            <div class="plan-top">
+              <span class="plan-icon"><i data-lucide="flame"></i></span>
+              <h3>Adventure</h3>
+              <p>Ideal para plugins, eventos y SMP.</p>
+            </div>
+            <div class="price"><span>$</span>8.999<small>/mes</small></div>
+            <ul>
+              <li>8 GB RAM DDR4</li>
+              <li>45 jugadores recomendados</li>
+              <li>Plugins ilimitados</li>
+              <li>Migracion asistida</li>
+            </ul>
+            <a class="button primary" href="mailto:ventas@craftnode.local?subject=Plan%20Adventure">
+              <i data-lucide="rocket"></i>
+              Empezar ahora
+            </a>
+          </article>
+
+          <article class="plan-card">
+            <div class="plan-top">
+              <span class="plan-icon"><i data-lucide="gem"></i></span>
+              <h3>Kingdom</h3>
+              <p>Para redes, modpacks pesados y comunidades.</p>
+            </div>
+            <div class="price"><span>$</span>14.999<small>/mes</small></div>
+            <ul>
+              <li>16 GB RAM DDR4</li>
+              <li>100 jugadores recomendados</li>
+              <li>CPU prioritaria</li>
+              <li>Backups cada 6 horas</li>
+            </ul>
+            <a class="button outline" href="mailto:ventas@craftnode.local?subject=Plan%20Kingdom">
+              <i data-lucide="mail"></i>
+              Pedir plan
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="control-section" id="panel">
+        <div class="panel-copy">
+          <p class="eyebrow">Panel de control</p>
+          <h2>Instala, reinicia y configura sin tocar consola si no queres.</h2>
+          <p>
+            Cambia la version, sube mundos, agenda reinicios, gestiona operadores y revisa el
+            consumo de RAM desde una interfaz pensada para servidores de Minecraft.
+          </p>
+          <div class="feature-list">
+            <span><i data-lucide="package-plus"></i> Paper, Spigot, Forge y Fabric</span>
+            <span><i data-lucide="hard-drive-upload"></i> FTP y administrador de archivos</span>
+            <span><i data-lucide="history"></i> Restauracion de backups</span>
+          </div>
+        </div>
+        <div class="console-card" aria-label="Vista simulada del panel">
+          <div class="console-top">
+            <span></span><span></span><span></span>
+          </div>
+          <pre id="server-log"></pre>
+          <div class="resource-grid">
+            <div><span>RAM</span><strong id="ram-usage">62%</strong></div>
+            <div><span>CPU</span><strong id="cpu-usage">28%</strong></div>
+            <div><span>TPS</span><strong id="tps-value">20.0</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section split-section" id="calculadora">
+        <div>
+          <p class="eyebrow">Calculadora</p>
+          <h2>Arma un plan segun tu comunidad.</h2>
+          <p>
+            Move los controles y estima que recursos te convienen para un server fluido.
+          </p>
+        </div>
+        <form class="calculator-card">
+          <label>
+            Jugadores esperados
+            <input id="players" type="range" min="5" max="120" value="35" step="5" />
+            <span id="players-label">35 jugadores</span>
+          </label>
+          <label>
+            Tipo de servidor
+            <select id="server-type">
+              <option value="1">Vanilla / Paper</option>
+              <option value="1.35">Plugins y minijuegos</option>
+              <option value="1.75">Modpack pesado</option>
+            </select>
+          </label>
+          <div class="estimate">
+            <span>Recomendado</span>
+            <strong id="estimate-title">8 GB RAM</strong>
+            <p id="estimate-price">$8.999/mes aprox.</p>
+          </div>
+        </form>
+      </section>
+
+      <section class="section" id="mods">
+        <div class="section-heading">
+          <p class="eyebrow">Incluido</p>
+          <h2>Todo lo que un servidor serio necesita desde el primer dia.</h2>
+        </div>
+        <div class="features-grid">
+          <article><i data-lucide="shield"></i><h3>Proteccion DDoS</h3><p>Mitigacion permanente para mantener tu IP estable durante eventos y picos.</p></article>
+          <article><i data-lucide="archive-restore"></i><h3>Backups automaticos</h3><p>Copias programadas y restauracion rapida cuando alguien rompe demasiado.</p></article>
+          <article><i data-lucide="plug-zap"></i><h3>Mods en 1 click</h3><p>Instalacion guiada de loaders y modpacks populares sin configuraciones eternas.</p></article>
+          <article><i data-lucide="globe-2"></i><h3>Dominio propio</h3><p>Conecta tu dominio o usa un subdominio gratis para que entren facil.</p></article>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2>Preguntas antes de abrir el mundo.</h2>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>Cuanto tarda en activarse?</summary>
+            <p>El servidor se crea automaticamente apenas confirmamos el pago. Normalmente tarda menos de 2 minutos.</p>
+          </details>
+          <details>
+            <summary>Puedo pasar mi mundo actual?</summary>
+            <p>Si. Te ayudamos a migrar archivos, plugins y configuraciones desde tu hosting anterior.</p>
+          </details>
+          <details>
+            <summary>Sirve para Minecraft Bedrock?</summary>
+            <p>Podemos preparar servidores Java, Bedrock o crossplay con Geyser segun el plan que elijas.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>CraftNode</strong>
+        <span>Hosting Minecraft para comunidades que quieren jugar, no pelearse con el servidor.</span>
+      </div>
+      <a class="button primary" href="mailto:ventas@craftnode.local?subject=Quiero%20un%20server%20Minecraft">
+        <i data-lucide="send"></i>
+        Hablar con ventas
+      </a>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
