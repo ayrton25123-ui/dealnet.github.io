@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wikend | Gestion de cocina</title>
+    <style>
+      :root {
+        --fondo: #000000;
+        --texto: #101513;
+        --suave: #5f6b64;
+        --panel: #ffffff;
+        --linea: #d8e2dc;
+        --oscuro: #050807;
+        --rojo: #c53d35;
+        --verde: #16a34a;
+        --verde-oscuro: #0b6b35;
+        --azul: #0f3d2a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--texto);
+        background: var(--fondo);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 28px;
+        color: #ffffff;
+        background: var(--oscuro);
+        border-bottom: 4px solid var(--verde);
+      }
+
+      .marca {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      .logo {
+        width: 58px;
+        height: 58px;
+        border: 2px solid #ffffff;
+        border-radius: 999px;
+        object-fit: cover;
+        background: #ffffff;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      nav a {
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(22, 163, 74, 0.18);
+        font-weight: 700;
+      }
+
+      .descargar-html {
+        border: 1px solid var(--verde);
+        background: var(--verde);
+      }
+
+      main {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 18px;
+        padding: 32px;
+        border-radius: 10px;
+        color: #ffffff;
+        background:
+          linear-gradient(90deg, rgba(5, 8, 7, 0.96), rgba(5, 8, 7, 0.72), rgba(11, 107, 53, 0.28)),
+          url("assets/wikend-kitchen-pass.png") center/cover;
+        min-height: 300px;
+        align-content: end;
+      }
+
+      .hero h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(34px, 6vw, 64px);
+        line-height: 1;
+      }
+
+      .hero p {
+        max-width: 640px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .acciones {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      button {
+        min-height: 42px;
+        border: 0;
+        border-radius: 8px;
+        padding: 0 16px;
+        color: #ffffff;
+        background: var(--verde-oscuro);
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      button.secundario {
+        color: var(--texto);
+        background: #ffffff;
+        border: 1px solid var(--linea);
+      }
+
+      .metricas,
+      .tablero,
+      .inferior,
+      .delivery-grid,
+      .menu-delivery,
+      .carrito,
+      .pedidos-delivery,
+      .admin-grid,
+      .admin-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .metricas {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .tarjeta,
+      .columna,
+      .panel,
+      .delivery-card,
+      .pedido-delivery,
+      .admin-card {
+        border: 1px solid var(--linea);
+        border-radius: 10px;
+        background: var(--panel);
+        box-shadow: 0 12px 28px rgba(40, 31, 20, 0.07);
+      }
+
+      .tarjeta {
+        padding: 18px;
+      }
+
+      .tarjeta span,
+      .tarjeta small,
+      .muted {
+        color: var(--suave);
+      }
+
+      .tarjeta strong {
+        display: block;
+        margin: 8px 0;
+        font-size: 34px;
+      }
+
+      .titulo-seccion {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin: 28px 0 14px;
+      }
+
+      .titulo-seccion h2 {
+        margin: 0;
+        font-size: 30px;
+      }
+
+      .filtros {
+        display: flex;
+        gap: 6px;
+        padding: 4px;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        background: #edf7f0;
+      }
+
+      .filtros button {
+        color: var(--texto);
+        background: transparent;
+      }
+
+      .filtros button.activo {
+        color: #ffffff;
+        background: var(--verde-oscuro);
+      }
+
+      .tablero {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .columna {
+        padding: 12px;
+        min-height: 360px;
+      }
+
+      .columna h3 {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 0 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--linea);
+      }
+
+      .lista {
+        display: grid;
+        gap: 10px;
+      }
+
+      .comanda {
+        padding: 14px;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .comanda.urgente {
+        border-color: rgba(191, 63, 47, 0.45);
+        box-shadow: inset 4px 0 0 var(--rojo);
+      }
+
+      .comanda.lista {
+        box-shadow: inset 4px 0 0 var(--verde);
+      }
+
+      .comanda h4,
+      .comanda p {
+        margin: 8px 0;
+      }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 12px 0;
+        color: var(--suave);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .botones {
+        display: flex;
+        gap: 8px;
+      }
+
+      .botones button {
+        flex: 1;
+        background: var(--oscuro);
+      }
+
+      .botones button:last-child {
+        background: var(--verde);
+      }
+
+      .inferior {
+        grid-template-columns: 1.2fr 1fr;
+      }
+
+      .delivery-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+
+      .admin-grid {
+        grid-template-columns: 0.85fr 1.15fr;
+      }
+
+      .delivery-card {
+        padding: 18px;
+      }
+
+      .delivery-card h3 {
+        margin: 0 0 6px;
+      }
+
+      .menu-delivery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .item-delivery {
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .item-delivery strong {
+        font-size: 18px;
+      }
+
+      .item-delivery span {
+        color: var(--suave);
+        line-height: 1.4;
+      }
+
+      .item-delivery footer,
+      .linea-carrito,
+      .pedido-delivery header,
+      .resumen-delivery {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .precio {
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .carrito-vacio {
+        padding: 14px;
+        border-radius: 8px;
+        color: var(--suave);
+        background: #edf7f0;
+      }
+
+      .linea-carrito {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--linea);
+      }
+
+      .linea-carrito button {
+        min-height: 32px;
+        padding: 0 10px;
+        background: var(--rojo);
+      }
+
+      .resumen-delivery {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--linea);
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .form-delivery {
+        margin-top: 16px;
+      }
+
+      .pedido-delivery {
+        padding: 14px;
+        background: white;
+      }
+
+      .pedido-delivery header strong {
+        color: var(--rojo);
+      }
+
+      .pedido-delivery p {
+        margin: 8px 0;
+      }
+
+      .whatsapp {
+        margin-top: 10px;
+        width: 100%;
+        background: #16a34a;
+      }
+
+      .admin-card {
+        padding: 18px;
+      }
+
+      .admin-card h3 {
+        margin: 0 0 8px;
+      }
+
+      .admin-alerta {
+        display: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        color: #ffffff;
+        background: var(--rojo);
+        font-weight: 800;
+      }
+
+      .admin-panel {
+        display: none;
+      }
+
+      .admin-activo .admin-panel {
+        display: grid;
+      }
+
+      .admin-activo #form-admin-login {
+        display: none;
+      }
+
+      .admin-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .admin-row strong {
+        display: block;
+      }
+
+      .admin-row small {
+        color: var(--suave);
+      }
+
+      .admin-row button {
+        min-height: 34px;
+        padding: 0 12px;
+        background: var(--rojo);
+      }
+
+      .admin-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .admin-form-grid label:last-of-type {
+        grid-column: 1 / -1;
+      }
+
+      .agregado-rapido {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        background: #edf7f0;
+      }
+
+      .agregado-rapido header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .cantidad-rapida,
+      .cantidad-producto {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .cantidad-rapida button,
+      .cantidad-producto button {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        min-height: 34px;
+        padding: 0;
+        color: var(--texto);
+        background: white;
+        border: 1px solid var(--linea);
+      }
+
+      .cantidad-rapida strong,
+      .cantidad-producto strong {
+        display: grid;
+        place-items: center;
+        min-width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: white;
+      }
+
+      .agregado-rapido h3 {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      .productos-comanda {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .producto-comanda {
+        display: grid;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .producto-comanda strong {
+        font-size: 15px;
+      }
+
+      .producto-comanda footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .producto-comanda footer > button {
+        min-height: 34px;
+        padding: 0 12px;
+        color: #ffffff;
+        background: var(--verde-oscuro);
+        border: 0;
+      }
+
+      .agregado-rapido .secundario {
+        min-height: 34px;
+        padding: 0 10px;
+        background: white;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .panel h2 {
+        margin-top: 0;
+      }
+
+      .stock {
+        display: grid;
+        gap: 12px;
+      }
+
+      .stock div {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--linea);
+      }
+
+      .barra {
+        width: 120px;
+        height: 8px;
+        overflow: hidden;
+        border-radius: 99px;
+        background: #e5efe9;
+      }
+
+      .barra span {
+        display: block;
+        height: 100%;
+        background: var(--verde);
+      }
+
+      dialog {
+        width: min(640px, calc(100vw - 28px));
+        border: 0;
+        border-radius: 10px;
+        padding: 22px;
+        background: var(--panel);
+      }
+
+      dialog::backdrop {
+        background: rgba(20, 18, 16, 0.58);
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        color: var(--suave);
+        font-weight: 800;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid var(--linea);
+        border-radius: 8px;
+        padding: 12px;
+        font: inherit;
+      }
+
+      @media (max-width: 900px) {
+        header,
+        .titulo-seccion {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .metricas,
+        .tablero,
+        .inferior,
+        .delivery-grid,
+        .menu-delivery,
+        .productos-comanda,
+        .admin-grid,
+        .admin-form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        main {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="marca">
+        <img class="logo" src="assets/wikend-logo.jpeg" alt="Logo de Wikend Bar" />
+        <span>Wikend Bar</span>
+      </div>
+      <nav>
+        <a href="#tablero">Tablero</a>
+        <a href="#comandas">Comandas</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#stock">Stock</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#admin">Admin</a>
+      </nav>
+      <button class="descargar-html" type="button" id="descargar-html">Descargar HTML</button>
+    </header>
+
+    <main>
+      <section class="hero" id="tablero">
+        <h1>Gestion de cocina para un bar en movimiento.</h1>
+        <p>
+          Controla comandas, tiempos de preparacion, stock critico y estaciones de trabajo desde
+          una pantalla simple para cocina, barra y salon.
+        </p>
+        <div class="acciones">
+          <button id="abrir-modal">Nueva comanda</button>
+          <button class="secundario" onclick="window.print()">Imprimir reporte</button>
+        </div>
+      </section>
+
+      <section class="metricas">
+        <article class="tarjeta">
+          <span>Comandas abiertas</span>
+          <strong id="m-abiertas">7</strong>
+          <small>Servicio activo</small>
+        </article>
+        <article class="tarjeta">
+          <span>Tiempo promedio</span>
+          <strong>14m</strong>
+          <small>Objetivo: 12m</small>
+        </article>
+        <article class="tarjeta">
+          <span>Platos listos</span>
+          <strong id="m-listas">2</strong>
+          <small>Esperando retiro</small>
+        </article>
+        <article class="tarjeta">
+          <span>Stock critico</span>
+          <strong>5</strong>
+          <small>Reponer antes del cierre</small>
+        </article>
+      </section>
+
+      <section id="comandas">
+        <div class="titulo-seccion">
+          <h2>Cola de comandas</h2>
+          <div class="filtros">
+            <button class="activo" data-filtro="todas">Todas</button>
+            <button data-filtro="urgente">Urgentes</button>
+            <button data-filtro="lista">Listas</button>
+          </div>
+        </div>
+
+        <div class="tablero">
+          <article class="columna" data-estado="entrada">
+            <h3>Entrando <span>0</span></h3>
+            <div class="lista"></div>
+          </article>
+          <article class="columna" data-estado="preparando">
+            <h3>Preparando <span>0</span></h3>
+            <div class="lista"></div>
+          </article>
+          <article class="columna" data-estado="lista">
+            <h3>Listo para salir <span>0</span></h3>
+            <div class="lista"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="delivery">
+        <div class="titulo-seccion">
+          <div>
+            <h2>Pedidos para delivery</h2>
+            <p class="muted">Carga pedidos por telefono, WhatsApp o mostrador y mandalos directo a cocina.</p>
+          </div>
+        </div>
+
+        <div class="delivery-grid">
+          <article class="delivery-card">
+            <h3>Menu rapido</h3>
+            <p class="muted">Toca un producto para agregarlo al pedido.</p>
+            <div class="menu-delivery" id="menu-delivery"></div>
+          </article>
+
+          <article class="delivery-card">
+            <h3>Nuevo pedido</h3>
+            <div class="carrito" id="carrito"></div>
+            <div class="resumen-delivery">
+              <span>Total</span>
+              <strong id="total-delivery">$0</strong>
+            </div>
+            <form class="form-delivery" id="form-delivery">
+              <label>
+                Cliente
+                <input id="delivery-cliente" placeholder="Nombre del cliente" required />
+              </label>
+              <label>
+                Telefono
+                <input id="delivery-telefono" placeholder="11 5555-5555" required />
+              </label>
+              <label>
+                Direccion
+                <input id="delivery-direccion" placeholder="Calle, numero, piso/depto" required />
+              </label>
+              <label>
+                Pago
+                <select id="delivery-pago">
+                  <option>Efectivo</option>
+                  <option>Transferencia</option>
+                  <option>Tarjeta</option>
+                </select>
+              </label>
+              <button type="submit">Enviar pedido a cocina</button>
+            </form>
+          </article>
+        </div>
+
+        <article class="delivery-card">
+          <h3>Delivery en curso</h3>
+          <div class="pedidos-delivery" id="pedidos-delivery"></div>
+        </article>
+      </section>
+
+      <section class="inferior">
+        <article class="panel" id="stock">
+          <h2>Stock critico</h2>
+          <div class="stock" id="stock-lista"></div>
+        </article>
+
+        <article class="panel" id="equipo">
+          <h2>Equipo y estaciones</h2>
+          <p><strong>Plancha:</strong> Rama / 8 comandas</p>
+          <p><strong>Fritos:</strong> Luz / 5 comandas</p>
+          <p><strong>Barra fria:</strong> Tomi / 3 comandas</p>
+          <p><strong>Pase:</strong> Mica / control final</p>
+        </article>
+      </section>
+
+      <section id="admin">
+        <div class="titulo-seccion">
+          <div>
+            <h2>Sector admin</h2>
+            <p class="muted">Acceso del dueño para modificar productos, precios y stock del sistema.</p>
+          </div>
+        </div>
+
+        <div class="admin-grid" id="admin-box">
+          <article class="admin-card">
+            <h3>Acceso del dueño</h3>
+            <p class="muted">Usuario de prueba: <strong>dueno</strong> / contraseña: <strong>wikend123</strong></p>
+            <form id="form-admin-login">
+              <label>
+                Usuario
+                <input id="admin-usuario" autocomplete="username" required />
+              </label>
+              <label>
+                Contraseña
+                <input id="admin-password" type="password" autocomplete="current-password" required />
+              </label>
+              <button type="submit">Entrar al admin</button>
+            </form>
+            <div class="admin-alerta" id="admin-error">Usuario o contraseña incorrectos.</div>
+            <div class="admin-panel" id="admin-panel">
+              <p><strong>Sesion activa.</strong> Ya podes editar productos y stock.</p>
+              <button class="secundario" type="button" id="admin-salir">Cerrar sesion</button>
+            </div>
+          </article>
+
+          <article class="admin-card admin-panel">
+            <h3>Modificar productos</h3>
+            <form class="admin-form-grid" id="form-producto">
+              <label>
+                Nombre
+                <input id="producto-nombre" placeholder="Ej: Empanadas fritas" required />
+              </label>
+              <label>
+                Precio
+                <input id="producto-precio" type="number" min="0" step="100" placeholder="6500" required />
+              </label>
+              <label>
+                Detalle
+                <input id="producto-detalle" placeholder="Descripcion corta para delivery" required />
+              </label>
+              <button type="submit">Agregar producto</button>
+            </form>
+            <div class="admin-list" id="admin-productos"></div>
+          </article>
+
+          <article class="admin-card admin-panel">
+            <h3>Modificar stock</h3>
+            <form class="admin-form-grid" id="form-stock">
+              <label>
+                Insumo
+                <input id="stock-nombre" placeholder="Ej: Pan brioche" required />
+              </label>
+              <label>
+                Cantidad
+                <input id="stock-cantidad" placeholder="24 u." required />
+              </label>
+              <label>
+                Nivel %
+                <input id="stock-nivel" type="number" min="0" max="100" value="50" required />
+              </label>
+              <button type="submit">Agregar stock</button>
+            </form>
+            <div class="admin-list" id="admin-stock"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="modal">
+      <form id="form-comanda">
+        <h2>Nueva comanda</h2>
+        <label>
+          Mesa
+          <input id="mesa" placeholder="Mesa 12" required />
+        </label>
+        <section class="agregado-rapido" aria-label="Agregado rapido de productos">
+          <header>
+            <div>
+              <h3>Agregado rapido</h3>
+              <span class="muted">Selecciona productos y se cargan en platos.</span>
+            </div>
+          </header>
+          <div class="productos-comanda" id="productos-comanda"></div>
+          <button class="secundario" type="button" id="limpiar-platos">Limpiar seleccion</button>
+        </section>
+        <label>
+          Platos
+          <textarea id="platos" rows="4" placeholder="2 burger wikend, 1 papas bravas" required></textarea>
+        </label>
+        <label>
+          Prioridad
+          <select id="prioridad">
+            <option value="normal">Normal</option>
+            <option value="urgente">Urgente</option>
+          </select>
+        </label>
+        <button type="submit">Enviar a cocina</button>
+        <button class="secundario" type="button" id="cerrar-modal">Cancelar</button>
+      </form>
+    </dialog>
+
+    <script>
+      const comandas = [
+        { id: 128, mesa: "Mesa 4", platos: "2 burger wikend, 1 papas bravas", estacion: "Plancha", minutos: 6, estado: "entrada", prioridad: "normal" },
+        { id: 129, mesa: "Barra 2", platos: "3 provoletas, 2 vermut tonic", estacion: "Frios", minutos: 11, estado: "entrada", prioridad: "urgente" },
+        { id: 130, mesa: "Mesa 9", platos: "1 milanesa, 1 ensalada", estacion: "Caliente", minutos: 14, estado: "preparando", prioridad: "normal" },
+        { id: 131, mesa: "Mesa 12", platos: "4 tacos de bondiola, 1 papas", estacion: "Plancha", minutos: 18, estado: "preparando", prioridad: "urgente" },
+        { id: 132, mesa: "Mesa 3", platos: "1 burger veggie", estacion: "Pase", minutos: 16, estado: "lista", prioridad: "normal" }
+      ];
+
+      const productosDelivery = [
+        { id: "burger", nombre: "Burger wikend", detalle: "Doble carne, cheddar, pepinos y salsa de la casa", precio: 8200 },
+        { id: "papas", nombre: "Papas bravas", detalle: "Papas crocantes con alioli y pimenton", precio: 4300 },
+        { id: "provoleta", nombre: "Provoleta", detalle: "Con tomates asados y oregano", precio: 5200 },
+        { id: "milanesa", nombre: "Milanesa completa", detalle: "Con papas y ensalada chica", precio: 9800 },
+        { id: "rabas", nombre: "Rabas", detalle: "Porcion para compartir con limon", precio: 11200 },
+        { id: "limonada", nombre: "Limonada", detalle: "Menta, jengibre y limon", precio: 2800 }
+      ];
+
+      const stockItems = [
+        { id: "pan", nombre: "Pan brioche", cantidad: "18 u.", nivel: 24 },
+        { id: "papas-stock", nombre: "Papas baston", cantidad: "7 kg", nivel: 34 },
+        { id: "rabas-stock", nombre: "Rabas", cantidad: "3 kg", nivel: 18 },
+        { id: "salsa", nombre: "Salsa wikend", cantidad: "1.2 L", nivel: 22 }
+      ];
+
+      const carritoDelivery = [];
+      const pedidosDelivery = [
+        { numero: 501, cliente: "Sofia", direccion: "Av. Corrientes 1420", total: 16700, estado: "Preparando" },
+        { numero: 502, cliente: "Nico", direccion: "Thames 811", total: 12600, estado: "En reparto" }
+      ];
+
+      let filtro = "todas";
+      const cantidadesComanda = {};
+      let adminAutenticado = false;
+
+      function crearId(texto) {
+        return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      }
+
+      function formatoPrecio(valor) {
+        return `$${valor.toLocaleString("es-AR")}`;
+      }
+
+      function limpiar(texto) {
+        return texto.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
+      }
+
+      function siguienteEstado(estado) {
+        if (estado === "entrada") return "preparando";
+        if (estado === "preparando") return "lista";
+        return "entregada";
+      }
+
+      function render() {
+        document.querySelectorAll(".columna").forEach((columna) => {
+          const estado = columna.dataset.estado;
+          const lista = columna.querySelector(".lista");
+          const visibles = comandas.filter((comanda) => {
+            const coincideEstado = comanda.estado === estado;
+            const coincideFiltro =
+              filtro === "todas" ||
+              (filtro === "urgente" && comanda.prioridad === "urgente") ||
+              (filtro === "lista" && comanda.estado === "lista");
+            return coincideEstado && coincideFiltro;
+          });
+
+          columna.querySelector("h3 span").textContent = visibles.length;
+          lista.innerHTML = visibles
+            .map((comanda) => `
+              <article class="comanda ${comanda.prioridad === "urgente" ? "urgente" : ""} ${comanda.estado === "lista" ? "lista" : ""}" data-id="${comanda.id}">
+                <small>#${comanda.id} / ${limpiar(comanda.mesa)}</small>
+                <h4>${limpiar(comanda.estacion)}</h4>
+                <p>${limpiar(comanda.platos)}</p>
+                <div class="meta">
+                  <span>${comanda.minutos} min</span>
+                  <span>${comanda.prioridad}</span>
+                </div>
+                <div class="botones">
+                  <button data-accion="avanzar">Avanzar</button>
+                  <button data-accion="demorar">+5 min</button>
+                </div>
+              </article>
+            `)
+            .join("");
+        });
+
+        document.querySelector("#m-abiertas").textContent = comandas.filter((c) => c.estado !== "entregada").length;
+        document.querySelector("#m-listas").textContent = comandas.filter((c) => c.estado === "lista").length;
+      }
+
+      function renderMenuDelivery() {
+        document.querySelector("#menu-delivery").innerHTML = productosDelivery
+          .map((producto) => `
+            <article class="item-delivery">
+              <strong>${limpiar(producto.nombre)}</strong>
+              <span>${limpiar(producto.detalle)}</span>
+              <footer>
+                <span class="precio">${formatoPrecio(producto.precio)}</span>
+                <button type="button" data-producto="${producto.id}">Agregar</button>
+              </footer>
+            </article>
+          `)
+          .join("");
+      }
+
+      function renderProductosComanda() {
+        document.querySelector("#productos-comanda").innerHTML = getProductosComanda()
+          .map((producto) => `
+            <article class="producto-comanda">
+              <strong>${limpiar(producto)}</strong>
+              <footer>
+                <div class="cantidad-producto" aria-label="Cantidad de ${limpiar(producto)}">
+                  <button type="button" data-comanda-menos="${limpiar(producto)}" aria-label="Restar ${limpiar(producto)}">-</button>
+                  <strong>${cantidadesComanda[producto] || 1}</strong>
+                  <button type="button" data-comanda-mas="${limpiar(producto)}" aria-label="Sumar ${limpiar(producto)}">+</button>
+                </div>
+                <button type="button" data-comanda-producto="${limpiar(producto)}">Agregar</button>
+              </footer>
+            </article>
+          `)
+          .join("");
+      }
+
+      function agregarProductoAComanda(producto) {
+        const platos = document.querySelector("#platos");
+        const linea = `${cantidadesComanda[producto] || 1} x ${producto}`;
+        platos.value = platos.value.trim() ? `${platos.value.trim()}\n${linea}` : linea;
+        platos.focus();
+      }
+
+      function actualizarCantidadProducto(producto, cambio) {
+        cantidadesComanda[producto] = Math.max(1, Math.min(20, (cantidadesComanda[producto] || 1) + cambio));
+        renderProductosComanda();
+      }
+
+      function renderCarrito() {
+        const carrito = document.querySelector("#carrito");
+        const total = carritoDelivery.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
+
+        if (carritoDelivery.length === 0) {
+          carrito.innerHTML = '<div class="carrito-vacio">Todavia no hay productos en el pedido.</div>';
+        } else {
+          carrito.innerHTML = carritoDelivery
+            .map((item) => `
+              <div class="linea-carrito">
+                <div>
+                  <strong>${item.cantidad} x ${limpiar(item.nombre)}</strong>
+                  <div class="muted">${formatoPrecio(item.precio * item.cantidad)}</div>
+                </div>
+                <button type="button" data-quitar="${item.id}">Quitar</button>
+              </div>
+            `)
+            .join("");
+        }
+
+        document.querySelector("#total-delivery").textContent = formatoPrecio(total);
+      }
+
+      function renderPedidosDelivery() {
+        document.querySelector("#pedidos-delivery").innerHTML = pedidosDelivery
+          .map((pedido) => `
+            <article class="pedido-delivery">
+              <header>
+                <span>#${pedido.numero} / ${limpiar(pedido.cliente)}</span>
+                <strong>${limpiar(pedido.estado)}</strong>
+              </header>
+              <p>${limpiar(pedido.direccion)}</p>
+              <div class="muted">${formatoPrecio(pedido.total)}</div>
+              <button class="whatsapp" type="button" data-whatsapp="${pedido.numero}">
+                Avisar al dueño por WhatsApp
+              </button>
+            </article>
+          `)
+          .join("");
+      }
+
+      function renderStock() {
+        document.querySelector("#stock-lista").innerHTML = stockItems
+          .map((item) => `
+            <div>
+              <strong>${limpiar(item.nombre)}</strong>
+              <span>${limpiar(item.cantidad)}</span>
+              <span class="barra"><span style="width: ${item.nivel}%"></span></span>
+            </div>
+          `)
+          .join("");
+      }
+
+      function getProductosComanda() {
+        return productosDelivery.map((producto) => producto.nombre);
+      }
+
+      function renderAdminProductos() {
+        document.querySelector("#admin-productos").innerHTML = productosDelivery
+          .map((producto) => `
+            <div class="admin-row">
+              <div>
+                <strong>${limpiar(producto.nombre)} / ${formatoPrecio(producto.precio)}</strong>
+                <small>${limpiar(producto.detalle)}</small>
+              </div>
+              <button type="button" data-borrar-producto="${producto.id}">Borrar</button>
+            </div>
+          `)
+          .join("");
+      }
+
+      function renderAdminStock() {
+        document.querySelector("#admin-stock").innerHTML = stockItems
+          .map((item) => `
+            <div class="admin-row">
+              <div>
+                <strong>${limpiar(item.nombre)} / ${limpiar(item.cantidad)}</strong>
+                <small>Nivel ${item.nivel}%</small>
+              </div>
+              <button type="button" data-borrar-stock="${item.id}">Borrar</button>
+            </div>
+          `)
+          .join("");
+      }
+
+      function renderAdmin() {
+        document.querySelector("#admin-box").classList.toggle("admin-activo", adminAutenticado);
+        document.querySelector("#admin-error").style.display = "none";
+        if (!adminAutenticado) return;
+        renderAdminProductos();
+        renderAdminStock();
+      }
+
+      document.addEventListener("click", (evento) => {
+        const borrarProductoBoton = evento.target.closest("[data-borrar-producto]");
+        if (borrarProductoBoton && adminAutenticado) {
+          const indice = productosDelivery.findIndex((producto) => producto.id === borrarProductoBoton.dataset.borrarProducto);
+          if (indice >= 0) productosDelivery.splice(indice, 1);
+          renderMenuDelivery();
+          renderProductosComanda();
+          renderAdminProductos();
+          return;
+        }
+
+        const borrarStockBoton = evento.target.closest("[data-borrar-stock]");
+        if (borrarStockBoton && adminAutenticado) {
+          const indice = stockItems.findIndex((item) => item.id === borrarStockBoton.dataset.borrarStock);
+          if (indice >= 0) stockItems.splice(indice, 1);
+          renderStock();
+          renderAdminStock();
+          return;
+        }
+
+        const comandaProductoBoton = evento.target.closest("[data-comanda-producto]");
+        if (comandaProductoBoton) {
+          agregarProductoAComanda(comandaProductoBoton.dataset.comandaProducto);
+          return;
+        }
+
+        const comandaMasBoton = evento.target.closest("[data-comanda-mas]");
+        if (comandaMasBoton) {
+          actualizarCantidadProducto(comandaMasBoton.dataset.comandaMas, 1);
+          return;
+        }
+
+        const comandaMenosBoton = evento.target.closest("[data-comanda-menos]");
+        if (comandaMenosBoton) {
+          actualizarCantidadProducto(comandaMenosBoton.dataset.comandaMenos, -1);
+          return;
+        }
+
+        const productoBoton = evento.target.closest("[data-producto]");
+        if (productoBoton) {
+          const producto = productosDelivery.find((item) => item.id === productoBoton.dataset.producto);
+          const existente = carritoDelivery.find((item) => item.id === producto.id);
+
+          if (existente) {
+            existente.cantidad += 1;
+          } else {
+            carritoDelivery.push({ ...producto, cantidad: 1 });
+          }
+
+          renderCarrito();
+          return;
+        }
+
+        const quitarBoton = evento.target.closest("[data-quitar]");
+        if (quitarBoton) {
+          const indice = carritoDelivery.findIndex((item) => item.id === quitarBoton.dataset.quitar);
+          if (indice >= 0) {
+            carritoDelivery[indice].cantidad -= 1;
+            if (carritoDelivery[indice].cantidad === 0) carritoDelivery.splice(indice, 1);
+          }
+
+          renderCarrito();
+          return;
+        }
+
+        const whatsappBoton = evento.target.closest("[data-whatsapp]");
+        if (whatsappBoton) {
+          const pedido = pedidosDelivery.find((item) => item.numero === Number(whatsappBoton.dataset.whatsapp));
+          if (!pedido) return;
+
+          const mensaje = `Hola, el delivery #${pedido.numero} de ${pedido.cliente} ya esta en curso. Direccion: ${pedido.direccion}. Total: ${formatoPrecio(pedido.total)}.`;
+          window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, "_blank");
+          return;
+        }
+
+        const boton = evento.target.closest("[data-accion]");
+        if (!boton) return;
+
+        const id = Number(boton.closest(".comanda").dataset.id);
+        const comanda = comandas.find((item) => item.id === id);
+        if (!comanda) return;
+
+        if (boton.dataset.accion === "demorar") {
+          comanda.minutos += 5;
+        } else {
+          comanda.estado = siguienteEstado(comanda.estado);
+        }
+
+        render();
+      });
+
+      document.querySelectorAll("[data-filtro]").forEach((boton) => {
+        boton.addEventListener("click", () => {
+          filtro = boton.dataset.filtro;
+          document.querySelectorAll("[data-filtro]").forEach((b) => b.classList.toggle("activo", b === boton));
+          render();
+        });
+      });
+
+      const modal = document.querySelector("#modal");
+      document.querySelector("#abrir-modal").addEventListener("click", () => modal.showModal());
+      document.querySelector("#cerrar-modal").addEventListener("click", () => modal.close());
+      document.querySelector("#limpiar-platos").addEventListener("click", () => {
+        document.querySelector("#platos").value = "";
+        getProductosComanda().forEach((producto) => {
+          cantidadesComanda[producto] = 1;
+        });
+        renderProductosComanda();
+      });
+
+      document.querySelector("#descargar-html").addEventListener("click", () => {
+        const contenido = `<!DOCTYPE html>\n${document.documentElement.outerHTML}`;
+        const archivo = new Blob([contenido], { type: "text/html;charset=utf-8" });
+        const enlace = document.createElement("a");
+        enlace.href = URL.createObjectURL(archivo);
+        enlace.download = "wikend.html";
+        enlace.click();
+        URL.revokeObjectURL(enlace.href);
+      });
+
+      document.querySelector("#form-comanda").addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        comandas.unshift({
+          id: Math.max(...comandas.map((c) => c.id)) + 1,
+          mesa: document.querySelector("#mesa").value.trim(),
+          platos: document.querySelector("#platos").value.trim(),
+          estacion: "Cocina",
+          minutos: 0,
+          estado: "entrada",
+          prioridad: document.querySelector("#prioridad").value
+        });
+        evento.target.reset();
+        modal.close();
+        render();
+      });
+
+      document.querySelector("#form-admin-login").addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        const usuario = document.querySelector("#admin-usuario").value.trim();
+        const password = document.querySelector("#admin-password").value;
+
+        if (usuario === "dueno" && password === "wikend123") {
+          adminAutenticado = true;
+          evento.target.reset();
+          renderAdmin();
+        } else {
+          document.querySelector("#admin-error").style.display = "block";
+        }
+      });
+
+      document.querySelector("#admin-salir").addEventListener("click", () => {
+        adminAutenticado = false;
+        renderAdmin();
+      });
+
+      document.querySelector("#form-producto").addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        if (!adminAutenticado) return;
+
+        const nombre = document.querySelector("#producto-nombre").value.trim();
+        const detalle = document.querySelector("#producto-detalle").value.trim();
+        const precio = Number(document.querySelector("#producto-precio").value);
+        const id = crearId(nombre) || `producto-${Date.now()}`;
+
+        productosDelivery.push({ id, nombre, detalle, precio });
+        cantidadesComanda[nombre] = 1;
+        evento.target.reset();
+        renderMenuDelivery();
+        renderProductosComanda();
+        renderAdminProductos();
+      });
+
+      document.querySelector("#form-stock").addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        if (!adminAutenticado) return;
+
+        const nombre = document.querySelector("#stock-nombre").value.trim();
+        const cantidad = document.querySelector("#stock-cantidad").value.trim();
+        const nivel = Math.max(0, Math.min(100, Number(document.querySelector("#stock-nivel").value)));
+        const id = crearId(nombre) || `stock-${Date.now()}`;
+
+        stockItems.push({ id, nombre, cantidad, nivel });
+        evento.target.reset();
+        document.querySelector("#stock-nivel").value = 50;
+        renderStock();
+        renderAdminStock();
+      });
+
+      document.querySelector("#form-delivery").addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        if (carritoDelivery.length === 0) return;
+
+        const cliente = document.querySelector("#delivery-cliente").value.trim();
+        const telefono = document.querySelector("#delivery-telefono").value.trim();
+        const direccion = document.querySelector("#delivery-direccion").value.trim();
+        const pago = document.querySelector("#delivery-pago").value;
+        const total = carritoDelivery.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
+        const detalle = carritoDelivery.map((item) => `${item.cantidad} x ${item.nombre}`).join(", ");
+        const numero = Math.max(...pedidosDelivery.map((pedido) => pedido.numero), 500) + 1;
+
+        pedidosDelivery.unshift({ numero, cliente, direccion, total, estado: "Nuevo" });
+        comandas.unshift({
+          id: Math.max(...comandas.map((c) => c.id)) + 1,
+          mesa: `Delivery #${numero}`,
+          platos: `${detalle}. Cliente: ${cliente}. Tel: ${telefono}. Pago: ${pago}. Direccion: ${direccion}`,
+          estacion: "Delivery",
+          minutos: 0,
+          estado: "entrada",
+          prioridad: "urgente"
+        });
+
+        carritoDelivery.splice(0, carritoDelivery.length);
+        evento.target.reset();
+        renderCarrito();
+        renderPedidosDelivery();
+        render();
+      });
+
+      renderMenuDelivery();
+      renderProductosComanda();
+      renderCarrito();
+      renderPedidosDelivery();
+      renderStock();
+      renderAdmin();
+      render();
+    </script>
+  </body>
+</html>
